@@ -49,3 +49,34 @@ supabase_url = userdata.get('SUPABASE')
 from sqlalchemy import create_engine, text
 engine = create_engine(supabase_url, pool_pre_ping = True)
 engine.connect()
+
+# pegando ods do banco
+df_ods = pd.read_sql("SELECT * FROM ods_death_causes", engine)
+
+# dimensão causa
+dim_causa = (df_ods[['causa_morte']]
+             .drop_duplicates()
+             .reset_index(drop=True))
+dim_causa = dim_causa.rename(columns={'causa_morte': 'descricao'})
+dim_causa.to_csv("dim_causa.csv", index=False)
+
+# dimensão genero
+dim_genero = (df_ods[['genero']]
+              .drop_duplicates()
+              .reset_index(drop=True))
+dim_genero = dim_genero.rename(columns={'genero': 'descricao'})
+dim_genero.to_csv("dim_genero.csv", index=False)
+
+# dimensão faixa etaria
+dim_grupo_idade = (df_ods[['faixa_etaria']]
+                   .drop_duplicates()
+                   .reset_index(drop=True))
+dim_grupo_idade = dim_grupo_idade.rename(columns={'faixa_etaria': 'descricao'})
+dim_grupo_idade.to_csv("dim_grupo_idade.csv", index=False)
+
+#dimensão região
+dim_regiao = (df_ods[['regiao']]
+              .drop_duplicates()
+              .reset_index(drop=True))
+dim_regiao = dim_regiao.rename(columns={'regiao': 'descricao'})
+dim_regiao.to_csv("dim_regiao.csv", index=False)
