@@ -7,10 +7,8 @@ Original file is located at
     https://colab.research.google.com/drive/1r_h4FQvd-UxCO2Y0wH08T2zPk9_DW6Gl
 """
 
-import pandas as pd
-import os
-
-path = "/root/.cache/kagglehub/datasets/syedaeman2212/deaths-and-causes/versions/1"
+import kagglehub
+path = kagglehub.dataset_download("syedaeman2212/deaths-and-causes")
 file = os.listdir(path)[0]
 
 df = pd.read_csv(f"{path}/{file}")
