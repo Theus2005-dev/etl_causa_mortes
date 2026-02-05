@@ -15,3 +15,4 @@ O projeto utiliza a arquitetura tradicional de Data Warehouse, organizada nas se
 - **ODS (Operational Data Store)**: dados tratados, tipados e normalizados.
 - **DW (Data Warehouse)**: modelo dimensional em esquema estrela, composto por tabelas fato e dimensões,
   otimizado para análises e visualizações.
+- As tabelas foram inicialmente importadas via CSV, aproveitando o identity automático do Postgres. Posteriormente, os IDs foram padronizados para uso como chaves substitutas no modelo dimensional.
