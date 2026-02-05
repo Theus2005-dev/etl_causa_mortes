@@ -38,7 +38,6 @@ df_ods['ano'] = df_ods['ano'].astype(int)
 df_ods['num_mortes'] = df_ods['num_mortes'].astype(int)
 df_ods['mortality_rate_per_1000'] = df_ods['mortality_rate_per_1000'].astype(float)
 
-df_ods.to_csv("ods_deaths_causes.csv", index=False)
 
 # conexao supabase
 from google.colab import userdata
