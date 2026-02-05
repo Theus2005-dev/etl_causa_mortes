@@ -40,3 +40,12 @@ df_ods['mortality_rate_per_1000'] = df_ods['mortality_rate_per_1000'].astype(flo
 
 df_ods.to_csv("ods_deaths_causes.csv", index=False)
 
+# conexao supabase
+from google.colab import userdata
+
+supabase_url = userdata.get('SUPABASE')
+
+# criando engine
+from sqlalchemy import create_engine, text
+engine = create_engine(supabase_url, pool_pre_ping = True)
+engine.connect()
