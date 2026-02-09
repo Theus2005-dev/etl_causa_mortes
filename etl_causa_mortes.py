@@ -77,3 +77,21 @@ dim_regiao = (df_ods[['regiao']]
               .reset_index(drop=True))
 dim_regiao = dim_regiao.rename(columns={'regiao': 'descricao'})
 dim_regiao.to_csv("dim_regiao.csv", index=False)
+
+# criação da tabela fato 
+fato_mortes = ( 
+    df_ods.merge(dim_causa_db, left_on="causa_morte", right_on='descricao_causa', how='left')
+)
+fato_mortes = (fato_mortes
+               .merge(dim_regiao_db, left_on="regiao", right_on="descricao_regiao", how="left")
+               )
+fato_mortes = (fato_mortes
+               .merge(dim_genero_db, left_on="genero", right_on="descricao_genero", how='left')
+               )
+fato_mortes = (fato_mortes
+               .merge(dim_grupo_idade_db, left_on="faixa_etaria", right_on="descricao_faixa_etaria", how='left')
+               )
+
+cols = ['ano', 'id_regiao', 'id_genero', 'id_grupo_idade', 'id_causa', 'num_mortes', 'mortality_rate_per_1000']
+fato_mortes = fato_mortes[cols].rename(columns={'num_mortes': 'numero_mortos'})
+fato_mortes.to_csv('fato_mortes.csv', index=False)
